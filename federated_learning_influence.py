@@ -100,7 +100,7 @@ results = []
 # 2 is only for quick test, need to set a large number
 epochs = 100
 for i in range(n_client):
-    if i != malicious_client:
+    if i not in malicious_client:
         results.append(
             clients[i].fit_generator(datagen.flow(clients_train_data[i], clients_train_label[i], batch_size=batch_size),
                                     steps_per_epoch=clients_train_data[i].shape[0]//batch_size, epochs=epochs,
