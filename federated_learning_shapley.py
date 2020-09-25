@@ -39,7 +39,10 @@ X_train, y_train, X_test, y_test, un_selected_index = get_data(dataset, init_noi
 
 n_client = 4
 malicious_client = sys.argv[2]
-malicious_client = map(float, malicious_client.strip('[]').split(','))
+if malicious_client == '[]':
+    malicious_client = []
+else:
+    malicious_client = map(float, malicious_client.strip('[]').split(','))
 print("noise level, malicious client: ", sys.argv[1], sys.argv[2])
 client_data_number = [6000, 6000, 6000, 6000]
 clients = []

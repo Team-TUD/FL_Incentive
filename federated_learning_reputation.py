@@ -44,7 +44,10 @@ for slot in range(REPUTATION_SLOT):
 
     n_client = 4
     malicious_client = sys.argv[2]
-    malicious_client = map(float, malicious_client.strip('[]').split(','))
+    if malicious_client == '[]':
+        malicious_client = []
+    else:
+        malicious_client = map(float, malicious_client.strip('[]').split(','))
     print("noise level, malicious client: ", sys.argv[1], sys.argv[2])
     #print("malicious client: ", malicious_client)
     #print("noise level: ", sys.argv[1])
