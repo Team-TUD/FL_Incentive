@@ -20,6 +20,7 @@ from io import BytesIO
 from loss_acc_plot import loss_acc_plot
 from keras.datasets import mnist, cifar10, cifar100, fashion_mnist
 import os
+import sys
 os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 
 # In[2]:
@@ -42,7 +43,11 @@ for slot in range(REPUTATION_SLOT):
 
 
     n_client = 4
-    malicious_client = 2
+    malicious_client = sys.argv[2]
+    malicious_client = map(float, malicious_client.strip('[]').split(','))
+    print("noise level, malicious client: ", sys.argv[1], sys.argv[2])
+    #print("malicious client: ", malicious_client)
+    #print("noise level: ", sys.argv[1])
     client_data_number = [6000, 6000, 6000, 6000]
     clients = []
     clients_train_data = []
@@ -103,7 +108,7 @@ for slot in range(REPUTATION_SLOT):
     # 2 is only for quick test, need to set a large number
     epochs = 100
     for i in range(n_client):
-        if i != malicious_client:
+        if i not in malicious_client:
             results.append(
                 clients[i].fit_generator(datagen.flow(clients_train_data[i], clients_train_label[i], batch_size=batch_size),
                                         steps_per_epoch=clients_train_data[i].shape[0]//batch_size, epochs=epochs,
@@ -112,7 +117,7 @@ for slot in range(REPUTATION_SLOT):
             )
         else:
             results.append(
-                clients[i].fit_generator(datagen.flow(clients_train_data[i], flip_label(clients_train_label[i],0.3), batch_size=batch_size),
+                clients[i].fit_generator(datagen.flow(clients_train_data[i], flip_label(clients_train_label[i],sys.argv[1]), batch_size=batch_size),
                                         steps_per_epoch=clients_train_data[i].shape[0]//batch_size, epochs=epochs,
                                         validation_data=(X_test, y_test)
                                         )
