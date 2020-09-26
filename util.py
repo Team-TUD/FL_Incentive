@@ -393,6 +393,7 @@ def uncertain_ranking(uncertain_list, y_noisy_iteration, y_predict, max_n):
 
 
 def flip_label(y_train, noise_level = 1):
+    print("noise level: ", noise_level)
     y = y_train.copy()
     n_class = y.shape[1]
     for i in range(y_train.shape[0]):

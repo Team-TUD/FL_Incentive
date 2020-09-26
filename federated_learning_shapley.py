@@ -112,8 +112,9 @@ for i in range(n_client):
                                     )
         )
     else:
+        print("malicious client: ", str(i))
         results.append(
-            clients[i].fit_generator(datagen.flow(clients_train_data[i], flip_label(clients_train_label[i], sys.argv[1]), batch_size=batch_size),
+            clients[i].fit_generator(datagen.flow(clients_train_data[i], flip_label(clients_train_label[i], float(sys.argv[1])), batch_size=batch_size),
                                     steps_per_epoch=clients_train_data[i].shape[0]//batch_size, epochs=epochs,
                                     validation_data=(X_test, y_test)
                                     )
