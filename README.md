@@ -1,4 +1,6 @@
-# FL_project
+# FL_Incentive
+Experiments for paper "An exploratory analysis on users’ contributions in federated learning"
+
 Contribution Measurement Experiment for Federated Learning 
 Run following code to use it.  
 ```sh
